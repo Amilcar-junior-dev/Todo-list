@@ -2,10 +2,13 @@ import React from 'react';
 import { SignOut } from 'phosphor-react-native';
 import {VStack, HStack, Heading, IconButton, useTheme, Text} from 'native-base';
 
+import { Filter } from '../components/Filter';
+
 export function Home () {
         const {colors}=useTheme();
     return ( 
         <VStack flex={1} pb={6} bg="gray.700">
+
             <HStack
             w="full" 
             justifyContent="space-between"
@@ -26,10 +29,24 @@ export function Home () {
                     </Heading>
                     <Text color="amber.900"> 3 </Text>
                 </HStack>
+
+                <HStack>
+                 <Filter type='open' 
+                     title='Em andamento'
+                 />
+                 
+                 <Filter type='closed' 
+                 title='finalizados'
+                 />
+
+                </HStack>
             </VStack>
+
+           
 
         </VStack>
     );
 }
 
 //HStack coloca os elementos um do lado do outro
+// Como no componente foi definido uma tipagem, é possível acessar essas propriedades daqui, sendo assim, definir qual será o seu tipo ( open | closed);
