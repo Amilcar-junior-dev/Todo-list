@@ -10,7 +10,7 @@ import {Button} from '../components/Button';
 function SignIn (){ //Todo componente deve começar com letra maiúscula
     
     const [name, setName]=useState(''); // Começa como vazio
-    const [password, setPassword]=useState('');
+    const [password, setPassword]=useState('');//Começa como vazio.
 
     const {colors}= useTheme(); // Desestruturando e pegando o colors de dentro do useTheme
     return (

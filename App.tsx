@@ -1,10 +1,11 @@
-import SignIn from './src/screens/SignIn';
 
 import { NativeBaseProvider, StatusBar } from 'native-base'; // Utilizado para prover os contextos ue o native base fornece, portanto, deve ser envolvido em toda a aplicação.
 import {useFonts, Roboto_400Regular, Roboto_700Bold} from '@expo-google-fonts/roboto'; // Importado o useFonts e as fontes que desejo utilizar ( após feita a instalação da fonte)
-
 import {THEME} from './src/styles/themes'; // Impot do objeto de temas criado.
-import {Loading} from './src/components/Loading';
+
+import SignIn from './src/screens/SignIn';
+import { Loading} from './src/components/Loading';
+import {Home} from './src/screens/Home';
 
 export default function App () {
   const [fontsLoaded] = useFonts({Roboto_400Regular, Roboto_700Bold}); // criado uma constante que irá receber o useFontes passando como opções as fontees que desejarei utilizar.
@@ -16,7 +17,7 @@ export default function App () {
       backgroundColor="transparent" //Permite definir a cor da barra de status.
       translucent // Faz com que a barra de status fique translucida, aparece o que está atrás.
     />
-    {fontsLoaded ? <SignIn /> :  <Loading/> }
+    {fontsLoaded ? <Home /> :  <Loading/> }
     </NativeBaseProvider>
   )
 }
