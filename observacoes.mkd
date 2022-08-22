@@ -1,0 +1,2 @@
+--> Native base é a biblioteca que permite utilizar componentes e forma declarativa;
+--> 
