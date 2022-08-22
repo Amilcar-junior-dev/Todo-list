@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "ignit",
+    "slug": "ignit",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
