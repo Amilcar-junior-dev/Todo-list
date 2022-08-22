@@ -3,7 +3,7 @@ import {Input as NativeBaseInput, IInputProps} from 'native-base';
 export function Input ({...rest}:IInputProps) { //IInputProps diz que todas as propriedades do input que estão no ...rest é do tipo IInputProps.
     return (
         <NativeBaseInput
-        bg="gray.700"
+        bg="coolGray.50"
         h={14}
         size="md"
         borderWidth={0}
@@ -11,6 +11,11 @@ export function Input ({...rest}:IInputProps) { //IInputProps diz que todas as p
         fontFamily="body"
         color="red"
         placeholderTextColor="gray.300"
+        _focus={{ // Quando clica no input e da o foco retorna essas configurações.
+            borderWidth:1, // largura da borda
+            borderColor: "blue.900", // cor da borda
+            bg:"black" // cor de fundo quando está em foco
+        }}
         {...rest}  // 
         />
     )
