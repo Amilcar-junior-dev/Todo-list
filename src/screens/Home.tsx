@@ -1,6 +1,6 @@
 import React from 'react';
 import { SignOut } from 'phosphor-react-native';
-import {VStack, HStack, Heading, IconButton, useTheme} from 'native-base';
+import {VStack, HStack, Heading, IconButton, useTheme, Text} from 'native-base';
 
 export function Home () {
         const {colors}=useTheme();
@@ -18,6 +18,16 @@ export function Home () {
                 <Heading >Icone de logo</Heading> 
                 <IconButton icon={<SignOut size={26} color={colors.gray[50]} />} />
             </HStack>
+
+            <VStack flex={1} px={6}>
+                <HStack w="full" mt={8} mb={4} justifyContent="space-between" alignItems="center">
+                    <Heading color="gray.100">
+                        Meus chamados
+                    </Heading>
+                    <Text color="amber.900"> 3 </Text>
+                </HStack>
+            </VStack>
+
         </VStack>
     );
 }

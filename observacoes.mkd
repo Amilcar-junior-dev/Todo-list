@@ -3,3 +3,9 @@
 --> Heading utilizado para textos em destaque
 --> So fazer a instalação de uma fonte em um projetouma boa prática é ao instalar fazer uma validÇão para que a fonte seja carregada primeiro e depois a alicação, ou seja, deve ser assíncrona.
     -> expo install expo-font @expo-google-fonts/ 'nome da font que deseja'
+
+--> O import de <StatusBar/> é utilizado para customizar a barra de notificações do celular que pode ser modificada de acordo com as cores que se deseja.
+
+--> Para que o React Native entenda os arquivos SVG é necessário instalar o SVG transform
+
+--> Em um import caso o nome do import seja o mesmo nome do componente ( caso em que ocorrerá conflito e possível colocar um apelido para o componente que esteja sendo importado através do => AS) Ex: import {Input as NativeBaseInput } from 'native-base', sendo assim o nput teraá o apelido de NativeBase Input.
