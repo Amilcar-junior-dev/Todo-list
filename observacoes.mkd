@@ -1,2 +1,5 @@
 --> Native base é a biblioteca que permite utilizar componentes e forma declarativa;
---> 
+--> VStack empilha os componentes na vertical.
+--> Heading utilizado para textos em destaque
+--> So fazer a instalação de uma fonte em um projetouma boa prática é ao instalar fazer uma validÇão para que a fonte seja carregada primeiro e depois a alicação, ou seja, deve ser assíncrona.
+    -> expo install expo-font @expo-google-fonts/ 'nome da font que deseja'
