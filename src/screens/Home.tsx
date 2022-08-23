@@ -1,5 +1,6 @@
-import {useState} from 'react';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import {useState} from 'react';
 import { ChatTeardropText, SignOut } from 'phosphor-react-native';
 import {VStack, HStack, Heading, IconButton, useTheme, Text, FlatList, Circle, Center} from 'native-base';
 
@@ -11,14 +12,26 @@ import { color } from 'native-base/lib/typescript/theme/styled-system';
 export function Home () {
     //OuseState abaixo será utilizado para definir o status dos chamados ( se estará aberto ou fechado), após o state é possível definir a tipagem ( o que ele poderá receber), no caso, receberá apenas opne ou closed e comecará em open.
         const [statusSelected, setestatusSelected]=useState<'open'|'closed'>('open')
-        const [orders, setOrders]=useState<OrderProps[]>(
-         // Definindo que este usesate é do tipo OrderProps ele acessa todas as tipagens criadas no OrderProps e o DATA do componente Order para de dar erro. A tipagem deve conter um [] pois é uma lista de coisas, um array.
-        [ 
-          
-        ]
-        )
-
+        // Definindo que este usesate é do tipo OrderProps ele acessa todas as tipagens criadas no OrderProps e o DATA do componente Order para de dar erro. A tipagem deve conter um [] pois é uma lista de coisas, um array.
+        const [orders, setOrders]=useState<OrderProps[]>([
+        {
+            id: '12',
+            patrimony: '13156',
+            status: 'open',
+            when: '10/08/2022' 
+        } 
+        ])
+        
         const {colors}=useTheme();
+        const navigation = useNavigation()
+
+        function handleNewOrder(){
+            navigation.navigate('New')
+        }
+        function handleOpenDetails(orderId: string){
+            navigation.navigate('Details', {orderId})// Ao colocar o parametro na função é possível coloca-la na navegação e trasmitir este parâmetro para a página que se quer ir.
+        }
+        
     return ( 
         <VStack flex={1} pb={6} bg="gray.700">
 
@@ -60,7 +73,8 @@ export function Home () {
                 <FlatList 
                     data={orders} // data é os dados que se quer passar para a flatList, o que se quer renderizar de informações.
                     keyExtractor={item => item.id}//Aqui é passado uma chave única, na qual, cada informação deve possuir para que haja uma melhor performace. Deve haver um nome ( por exemplo item, mas pode ser qualquer coisa), esse item é referente as informações de DATA, ou seja, ele contém todos os parâmetros da data (neste caso: id, patrimony e etc.).
-                    renderItem={({item})=><Order data={item} /> } // define o que se quer renderizar, pode ser uma view, um texto, um box e etc. Se deve passar o item para acessar os parametros dele, nese cado em um Text.
+                    renderItem={({item})=><Order data={item} onPress={()=>handleOpenDetails(item.id)} /> } // define o que se quer renderizar, pode ser uma view, um texto, um box e etc. Se deve passar o item para acessar os parametros dele, nese cado em um Text.
+                    //Quando precionar o Order ele chamará a função handleOpenDetails, naverá para a outra página e levará o id do item.
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 100}} // Estilo do conteudo interno da flatlist
                     ListEmptyComponent={()=>(
@@ -72,8 +86,8 @@ export function Home () {
                     )}// Permite renderizar algum componente quando a flatList estiver vazia
                 />
             </VStack>
-            <Button title="Nova solicitação"/>
-        </VStack>
+            <Button title="Nova solicitação" onPress={handleNewOrder} />
+       </VStack>
     );
 }
 
