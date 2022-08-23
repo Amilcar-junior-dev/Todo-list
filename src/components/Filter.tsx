@@ -8,7 +8,7 @@ type Props = IButtonProps & {
 // A propriedade isActive é opcional e caso ela não seja informada começará com o valor false, terminado logo abaixo.
 export function Filter ({title, isActive = false, type, ...rest}: Props) {
     const {colors}=useTheme(); // Acessa as cores do useTheme
-    const colortType = type === 'open' ? colors.indigo[700] : colors.amber[700]
+    const colortType = type === 'open' ? colors.amber[700] : colors.indigo[700]
     //Condiciona as cores, se estiver open retornará uma cor, senão, retornará outra.
     return(
         <Button
@@ -32,3 +32,6 @@ export function Filter ({title, isActive = false, type, ...rest}: Props) {
         </Button>
     )
 }
+
+
+
