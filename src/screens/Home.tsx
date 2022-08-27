@@ -1,4 +1,6 @@
 import React from 'react';
+import { Alert } from 'react-native';
+import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import {useState} from 'react';
 import { ChatTeardropText, SignOut } from 'phosphor-react-native';
@@ -31,6 +33,14 @@ export function Home () {
         function handleOpenDetails(orderId: string){
             navigation.navigate('Details', {orderId})// Ao colocar o parametro na função é possível coloca-la na navegação e trasmitir este parâmetro para a página que se quer ir.
         }
+        function handleLogout(){
+            auth() // A autenticação do firebase verifica o método de sinOut abaixo
+            .signOut()// descnecta o usuário da aplicação.
+            .catch(error => {
+                console.log(error);
+                return Alert.alert('Sair', 'Não foi possível sair')
+            });
+        }
         
     return ( 
         <VStack flex={1} pb={6} bg="gray.700">
@@ -45,7 +55,7 @@ export function Home () {
             px={6}
             >
                 <Heading >Icone de logo</Heading> 
-                <IconButton icon={<SignOut size={26} color={colors.gray[50]} />} />
+                <IconButton icon={<SignOut size={26} color={colors.gray[50]}  />}onPress={handleLogout} />
             </HStack>
 
             <VStack flex={1} px={6}>
