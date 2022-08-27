@@ -1,4 +1,4 @@
-package com.ignit.newarchitecture;
+package com.plugin.expo.firebase.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.ignit.BuildConfig;
-import com.ignit.newarchitecture.components.MainComponentsRegistry;
-import com.ignit.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.plugin.expo.firebase.BuildConfig;
+import com.plugin.expo.firebase.newarchitecture.components.MainComponentsRegistry;
+import com.plugin.expo.firebase.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

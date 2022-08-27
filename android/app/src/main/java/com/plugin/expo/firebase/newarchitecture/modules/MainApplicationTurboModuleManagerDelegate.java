@@ -1,4 +1,4 @@
-package com.ignit.newarchitecture.modules;
+package com.plugin.expo.firebase.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

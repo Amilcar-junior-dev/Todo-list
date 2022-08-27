@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "840725829403",
+    "project_id": "ignite-b2893",
+    "storage_bucket": "ignite-b2893.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840725829403:android:6f1639f1e60b77a3da65be",
+        "android_client_info": {
+          "package_name": "com.plugin.expo.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840725829403-59s18qjs6kl582dr8vaan72m5cpij903.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxTYceg4htes8bb1mPiBmjj_u8qw8Cy7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840725829403-59s18qjs6kl582dr8vaan72m5cpij903.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "840725829403-3n1rtjmkljiq8o6bprlan1261ejdj3ck.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.plugin.expo.firebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

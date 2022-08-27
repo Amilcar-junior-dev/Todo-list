@@ -1,4 +1,4 @@
-package com.ignit;
+package com.plugin.expo.firebase;
 
 import android.os.Build;
 import android.os.Bundle;
