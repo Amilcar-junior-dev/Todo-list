@@ -1,9 +1,9 @@
 import React from 'react';
 import {View,Text} from 'react-native';
-function SignIn (){ //Todo componente deve começar com letra maiúscula
+function SignIn (){ 
     return (
         <View>
-            <Text> Ola mundo de merda</Text>
+            <Text> Hello Word </Text>
         </View>
     )
 }
