@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"; 
 import { useRoute } from "@react-navigation/native";
-import { VStack,Text, useTheme, HStack} from "native-base";
+import { VStack,Text, useTheme, HStack, ScrollView,} from "native-base";
 import firestore from '@react-native-firebase/firestore';
-import { CircleWavyCheck, Hourglass} from 'phosphor-react-native';
+import { CircleWavyCheck, Hourglass, DesktopTower, Clipboard} from 'phosphor-react-native';
 
 import { dateFormat } from "../utils/firestoreDateformat";
 
@@ -10,7 +10,9 @@ import {Header} from '../components/Header';
 import { OrderProps } from "../components/Order";
 import { OrderFireStoreDTO } from "../DTOs/OrderDTO";
 import {Loading} from '../components/Loading';
-import colors from "native-base/lib/typescript/theme/base/colors";
+import {CardDetails} from '../components/CardDetails';
+import { Input } from "../components/input";
+import {Button} from '../components/Button';
 
 type RoutsParams = {
     orderId: string;
@@ -66,7 +68,7 @@ export function Details () {
         <VStack flex={1} bg="gray.700">
             <Header title="Solicitação"/>
             <HStack  bg="gray.500" justifyContent="center" p={4}>
-                {
+                { // Verificação condicional para renderizar diferentes icones
                     order.status === 'closed'
                     ? <CircleWavyCheck size={22} color={colors.green[300]}/>
                      
@@ -74,15 +76,52 @@ export function Details () {
                 }
                 <Text 
                 fontSize="sm"
-                color={order.status === 'closed' ? colors.green[300] : colors.secondary[700]}
+                color={order.status === 'closed' ? colors.green[300] : colors.amber[900]}
                 ml={2}
                 textTransform="uppercase"
-                 
                 >
                     {order.status === 'closed' ? 'finalizado' : 'em andamento'}
                 </Text>
-
             </HStack>
+            <ScrollView mx={5} showsVerticalScrollIndicator={false}>
+                <CardDetails 
+                  title="Equipamento"
+                  description={`Patrimônio ${order.patrimony}`}
+                  icon={DesktopTower}
+                  footer={order.when}
+                />
+
+
+                <CardDetails 
+                  title="Descrição do problema"
+                  description={order.description}
+                  icon={Clipboard}
+                  footer={order.when}
+                />
+
+                <CardDetails 
+                  title="Solução"
+                  icon={CircleWavyCheck}
+                  footer={order.closed && `Encerrado em ${order.closed}` }
+                >
+                    <Input 
+                    placeholder="Descrição da solução:"
+                    onChangeText={setSolution}
+                    bg="gray.600"
+                    h={24}
+                    textAlignVertical="top"
+                    multiline={true}
+                    />
+
+                </CardDetails>
+            </ScrollView>
+            {
+                !order.closed &&
+                <Button
+                 title="Encerrar Solicitação"
+                 m={5}
+                />
+            }
         </VStack>
     )
 }

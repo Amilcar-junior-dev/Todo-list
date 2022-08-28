@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import {IconProps} from 'phosphor-react-native ';
+import {IconProps} from 'phosphor-react-native';
 import { VStack, HStack, Text, Box, useTheme } from "native-base";
 
 type Props = {
@@ -24,7 +24,7 @@ export function CardDetails({
 
 
     return (
-        <VStack bg="gray.600" p={5} mt={5} rounded="sm">
+        <VStack bg="gray.500" p={5} mt={5} rounded="sm">
             <HStack alignItems="center" mb={4}>
                 <Icon  color={colors.primary[700]} />
                 <Text ml={2} color="gray.300" fontSize="sm" textTransform="uppercase">
@@ -42,14 +42,13 @@ export function CardDetails({
 
             {
                 !!footer &&
-                <Box borderTopWidth={1} mt={3}>
+                <Box borderTopWidth={1} borderTopColor="gray.700" mt={3}>
                     <Text mt={3} color="gray.300" fontSize="sm">
                         {footer}
                     </Text>
 
                 </Box>
             }
-
         </VStack>
     )
 }
