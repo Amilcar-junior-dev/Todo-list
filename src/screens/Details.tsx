@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"; 
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { VStack,Text, useTheme, HStack, ScrollView,} from "native-base";
 import firestore from '@react-native-firebase/firestore';
 import { CircleWavyCheck, Hourglass, DesktopTower, Clipboard} from 'phosphor-react-native';
@@ -13,6 +13,7 @@ import {Loading} from '../components/Loading';
 import {CardDetails} from '../components/CardDetails';
 import { Input } from "../components/input";
 import {Button} from '../components/Button';
+import { Alert } from "react-native";
 
 type RoutsParams = {
     orderId: string;
@@ -25,7 +26,7 @@ type OrderDetails  = OrderProps & {
 }
 
 export function Details () {
-
+    const navigation = useNavigation()
     const {colors}=useTheme();
     const [ isLoading, setIsLoading] = useState(true)
     const [ solution, setSolution]= useState('')
@@ -35,6 +36,31 @@ export function Details () {
 
     const route = useRoute();
     const {orderId} = route.params as RoutsParams 
+
+    function handleOrderClose(){ // Função que vai encerrar as solicitações.
+        if(!solution){ // Se n~houver solução retorna um alerta
+            return Alert.alert('Solicitação', 'Informe solução para encerar solicitação')
+        }
+
+        firestore() //Busca do FireStore
+        .collection<OrderFireStoreDTO>('orders') // Acessa a coleção orders lá do firestore
+        .doc(orderId)//Acessa o doc pela orderID
+        .update({// Atualiza os campos que são passados dentro do update
+            status: 'closed',
+            solution: solution,
+            closed_at: firestore.FieldValue.serverTimestamp() // Acessa a hora e data no momento
+        }) 
+        .then(() => { // Se deu tudo certo ENTÃO
+            Alert.alert('Solicitação', 'Solicitação encerrada')
+            navigation.goBack();
+        })
+        .catch((error)=>{
+            console.log(error)
+            Alert.alert('Solicitação', 'Não foi possível encerrar a solicitação')
+        })
+      
+    }
+
 
     useEffect(() => {
         firestore() // Acessa o firestore
@@ -103,8 +129,10 @@ export function Details () {
                   title="Solução"
                   icon={CircleWavyCheck}
                   footer={order.closed && `Encerrado em ${order.closed}` }
+                  description={order.solution}
                 >
-                    <Input 
+                    { order.status === 'open' && // Condicional para que se estiver aberto a solicitação aparecer o input senão não 
+                        <Input 
                     placeholder="Descrição da solução:"
                     onChangeText={setSolution}
                     bg="gray.600"
@@ -112,6 +140,7 @@ export function Details () {
                     textAlignVertical="top"
                     multiline={true}
                     />
+                    }
 
                 </CardDetails>
             </ScrollView>
@@ -120,6 +149,7 @@ export function Details () {
                 <Button
                  title="Encerrar Solicitação"
                  m={5}
+                 onPress={handleOrderClose}
                 />
             }
         </VStack>
