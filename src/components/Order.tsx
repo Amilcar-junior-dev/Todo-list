@@ -1,18 +1,18 @@
 import { HStack, Text,Box, useTheme, VStack, Circle, Pressable, IPressableProps} from "native-base";
 import {ClockAfternoon, Hourglass, CircleWavyCheck} from 'phosphor-react-native';
 
-export type OrderProps = {//Tipagem exportada para poder ser reaproveitada em outro local caso utilize este componente.
+export type OrderProps = {
 id: string;
 patrimony: string;
 when: string;
 status: 'open' | 'closed';
 }
 
-type Props = IPressableProps & { // O tipo props contem um data que possui todas os parametros do OrderProps
+type Props = IPressableProps & { 
  data: OrderProps;
 }
-//Veja que passando a tipagem para o componente é possível acessar as informações de dentro dessas propriedades
-export function Order ({data, ...rest}: Props) { //Order recebe o data e todo o restante que vem de props
+
+export function Order ({data, ...rest}: Props) { 
     const {colors}=useTheme()
     const statusColor = data.status === 'open' ? colors.amber[700] : colors.indigo[700]
 
@@ -45,6 +45,5 @@ export function Order ({data, ...rest}: Props) { //Order recebe o data e todo o 
             </Circle>
         </HStack>
     </Pressable>
-
     )
 }

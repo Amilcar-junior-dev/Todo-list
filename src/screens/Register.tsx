@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Alert} from 'react-native';
 import { VStack } from "native-base";
-import firestore from '@react-native-firebase/firestore'; // importado o firestore para enviar todas as informações p/ o banco D
+import firestore from '@react-native-firebase/firestore'; 
 import { useNavigation } from '@react-navigation/native';
 
 import {Header} from '../components/Header';
@@ -22,24 +22,22 @@ export function Register () {
         setIsLoading(true);
 
         firestore()
-        .collection('orders') // Se ñ há uma coleção no firebase ele cria automaticamente.
-        .add({ //Esse add é para adicionar um novo documento há coleção, aqui você vai colocar o que deseja adicionar.
+        .collection('orders') 
+        .add({ 
             patrimony,
             description,
             status: 'open',
-            created_at: firestore.FieldValue.serverTimestamp() // Esta é uma função que pega a data e a hora para o created_at
+            created_at: firestore.FieldValue.serverTimestamp() 
         })
-        .then(()=>{ // se o código acima deu tudo certo ENTÃO ( significado de then)
+        .then(()=>{ 
             Alert.alert('Solicitação', 'Solicitação registrda com sucesso.');
-            navigation.goBack(); // Se deu tudo certo vai exibir o alerta acima e vai navegar para a página anterior
+            navigation.goBack(); 
         })
-        .catch((error)=> { // Tratamento de erro caso dê errado a solicitação acima
+        .catch((error)=> { 
             console.log(error);
-            setIsLoading(false); // Vai parar o carregamento
+            setIsLoading(false); 
             return Alert.alert('Solicitação', 'Não foi possível registrar o pedido.')
         });
-
-        
     }
 
     return (
@@ -55,7 +53,7 @@ export function Register () {
             placeholder="Descrição do problema"
             flex={1}
             mt={5}
-            multiline // Permite que a pessoa possa quebrar linhas, dar entre e etc.
+            multiline 
             textAlignVertical="top"
             onChangeText={setDescription}
             />

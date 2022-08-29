@@ -15,9 +15,9 @@ import { Loading } from '../components/Loading';
 
 
 export function Home () {
-    //OuseState abaixo será utilizado para definir o status dos chamados ( se estará aberto ou fechado), após o state é possível definir a tipagem ( o que ele poderá receber), no caso, receberá apenas opne ou closed e comecará em open.
+   
         const [statusSelected, setestatusSelected]=useState<'open'|'closed'>('open')
-        // Definindo que este usesate é do tipo OrderProps ele acessa todas as tipagens criadas no OrderProps e o DATA do componente Order para de dar erro. A tipagem deve conter um [] pois é uma lista de coisas, um array.
+      
         const [orders, setOrders]=useState<OrderProps[]>([])
 
         const [ loading, setLoading] = useState(true);
@@ -29,11 +29,11 @@ export function Home () {
             navigation.navigate('New')
         }
         function handleOpenDetails(orderId: string){
-            navigation.navigate('Details', {orderId})// Ao colocar o parametro na função é possível coloca-la na navegação e trasmitir este parâmetro para a página que se quer ir.
+            navigation.navigate('Details', {orderId})
         }
         function handleLogout(){
-            auth() // A autenticação do firebase verifica o método de sinOut abaixo
-            .signOut()// descnecta o usuário da aplicação.
+            auth() /
+            .signOut()
             .catch(error => {
                 console.log(error);
                 return Alert.alert('Sair', 'Não foi possível sair')
@@ -42,13 +42,13 @@ export function Home () {
 
         useEffect(()=> {
 
-            setLoading(true); // ativa o load quando o useeffect é chamado
-            const subscriber = firestore() // Chama o firestore
-            .collection('orders') // busca na coleção orders que foi criada.
-            .where('status', '==', statusSelected)// busca na coleção orders, onde ( where), no status e verifica se ele é igual a statusSelected
-            .onSnapshot( snapshot => { // Atualiza os dados em tempo real na aplicação
-                const data = snapshot.docs.map(doc => { // constante data está acessando os documentos através do snapshot e é mapeado
-                    const { patrimony, description, status, created_at} = doc.data(); // desestrutura os docs e pega os elementos abaixo ( patrimony e etc)
+            setLoading(true); 
+            const subscriber = firestore() 
+            .collection('orders') 
+            .where('status', '==', statusSelected)
+            .onSnapshot( snapshot => { 
+                const data = snapshot.docs.map(doc => { 
+                    const { patrimony, description, status, created_at} = doc.data(); 
 
                     return {
                         id: doc.id,
@@ -61,9 +61,7 @@ export function Home () {
                 setOrders(data);
                 setLoading(false)
             });
-             return subscriber // chamado o subscriber aqui com o return para que haja um método de limpeza.
-
-            //  PAREI AQUI 1HR 30 MIN 
+             return subscriber 
 
         },[statusSelected]);
         
@@ -106,24 +104,23 @@ export function Home () {
 
                 </HStack>
  
-               {  // Se o loading estiver habilitado será mostrado o componente de loading, se não será a flatList
+               {  
                     loading
                  ? 
                     <Loading /> 
                  :<FlatList 
-                    data={orders} // data é os dados que se quer passar para a flatList, o que se quer renderizar de informações.
-                    keyExtractor={item => item.id}//Aqui é passado uma chave única, na qual, cada informação deve possuir para que haja uma melhor performace. Deve haver um nome ( por exemplo item, mas pode ser qualquer coisa), esse item é referente as informações de DATA, ou seja, ele contém todos os parâmetros da data (neste caso: id, patrimony e etc.).
-                    renderItem={({item})=><Order data={item} onPress={()=>handleOpenDetails(item.id)} /> } // define o que se quer renderizar, pode ser uma view, um texto, um box e etc. Se deve passar o item para acessar os parametros dele, nese cado em um Text.
-                    //Quando precionar o Order ele chamará a função handleOpenDetails, naverá para a outra página e levará o id do item.
+                    data={orders} 
+                    keyExtractor={item => item.id}
+                    renderItem={({item})=><Order data={item} onPress={()=>handleOpenDetails(item.id)} /> } 
                     showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 100}} // Estilo do conteudo interno da flatlist
+                    contentContainerStyle={{ paddingBottom: 100}} 
                     ListEmptyComponent={()=>(
                         <Center>
                             <ChatTeardropText color={colors.gray[300]} size={40}/>
                             <Text color="gray.300" fontSize="xl" mt={6} textAlign="center"> Você ainda não possui {'\n'} solicitações {statusSelected === 'open' ? 'em andamento' : 'finalizadas'}
                             </Text>
                         </Center>
-                    )}// Permite renderizar algum componente quando a flatList estiver vazia
+                    )}
                 />
                 }
             </VStack>
@@ -131,6 +128,3 @@ export function Home () {
        </VStack>
     );
 }
-
-//HStack coloca os elementos um do lado do outro
-// Como no componente foi definido uma tipagem, é possível acessar essas propriedades daqui, sendo assim, definir qual será o seu tipo ( open | closed);

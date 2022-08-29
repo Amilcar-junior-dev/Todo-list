@@ -1,6 +1,4 @@
 import {Center, Spinner}  from 'native-base';
-//Center mantém todos os elementos no centro 
-// Spinner da um efeito de loading
 
 export function Loading (){
     return(
@@ -9,5 +7,3 @@ export function Loading (){
         </Center>
     )
 }
-
-// O center está mantendo o componente de loading ( Spinner) no centro.s 

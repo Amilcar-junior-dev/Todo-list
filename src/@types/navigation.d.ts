@@ -9,4 +9,3 @@ export declare global {
     }
 }
 
-// Aqui é declarado e exportado um modulo que faz com que a minha navegação reconheça a tipagem das rotas existentes.

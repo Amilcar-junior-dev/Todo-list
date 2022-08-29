@@ -31,26 +31,24 @@ export function Details () {
     const [ isLoading, setIsLoading] = useState(true)
     const [ solution, setSolution]= useState('')
     const [ order, setOrder]= useState<OrderDetails>({} as OrderDetails) 
-    //  O state acima determina que a order comecará como um objeto vazio, porém, este objeto é do tipo OrderDetails
-
-
+    
     const route = useRoute();
     const {orderId} = route.params as RoutsParams 
 
-    function handleOrderClose(){ // Função que vai encerrar as solicitações.
-        if(!solution){ // Se n~houver solução retorna um alerta
+    function handleOrderClose(){ 
+        if(!solution){ 
             return Alert.alert('Solicitação', 'Informe solução para encerar solicitação')
         }
 
-        firestore() //Busca do FireStore
-        .collection<OrderFireStoreDTO>('orders') // Acessa a coleção orders lá do firestore
-        .doc(orderId)//Acessa o doc pela orderID
-        .update({// Atualiza os campos que são passados dentro do update
+        firestore() 
+        .collection<OrderFireStoreDTO>('orders') 
+        .doc(orderId)
+        .update({
             status: 'closed',
             solution: solution,
-            closed_at: firestore.FieldValue.serverTimestamp() // Acessa a hora e data no momento
+            closed_at: firestore.FieldValue.serverTimestamp() 
         }) 
-        .then(() => { // Se deu tudo certo ENTÃO
+        .then(() => { 
             Alert.alert('Solicitação', 'Solicitação encerrada')
             navigation.goBack();
         })
@@ -63,15 +61,15 @@ export function Details () {
 
 
     useEffect(() => {
-        firestore() // Acessa o firestore
-        .collection<OrderFireStoreDTO>('orders') // Acessa a coleção orders que foi criada e ainda é possível
-        .doc(orderId) // Passa para o doc o id que se quer buscar
+        firestore() /
+        .collection<OrderFireStoreDTO>('orders') 
+        .doc(orderId) 
         .get()
-        .then((doc) => { // Se deu certo pegar o dado acima ENTÃO cria uma const desestruturando as informações de doc
-            const {patrimony, status, description, created_at, closed_at, solution} = doc.data(); // Desestrutura e pega os dados de doc.data
+        .then((doc) => { 
+            const {patrimony, status, description, created_at, closed_at, solution} = doc.data(); 
             const closed = closed_at ? dateFormat(closed_at) : null;
 
-            setOrder({ // Passa para setOrder os valores retornados abaixo
+            setOrder({ 
                 id: doc.id,
                 patrimony: patrimony,
                 description: description,
@@ -83,7 +81,6 @@ export function Details () {
 
             setIsLoading(false)
         })
-
     },[]);
 
     if(isLoading){
@@ -94,7 +91,7 @@ export function Details () {
         <VStack flex={1} bg="gray.700">
             <Header title="Solicitação"/>
             <HStack  bg="gray.500" justifyContent="center" p={4}>
-                { // Verificação condicional para renderizar diferentes icones
+                { 
                     order.status === 'closed'
                     ? <CircleWavyCheck size={22} color={colors.green[300]}/>
                      
@@ -117,7 +114,6 @@ export function Details () {
                   footer={order.when}
                 />
 
-
                 <CardDetails 
                   title="Descrição do problema"
                   description={order.description}
@@ -131,7 +127,7 @@ export function Details () {
                   footer={order.closed && `Encerrado em ${order.closed}` }
                   description={order.solution}
                 >
-                    { order.status === 'open' && // Condicional para que se estiver aberto a solicitação aparecer o input senão não 
+                    { order.status === 'open' && 
                         <Input 
                     placeholder="Descrição da solução:"
                     onChangeText={setSolution}
